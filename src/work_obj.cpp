@@ -111,18 +111,18 @@ int t_work_obj::do_search(
 void t_work_obj::logout(const std::string_view& astr_view)
 {
   std::cout << astr_view << std::endl;
-};
+}
 #else
 void t_work_obj::logout(const std::string_view&)
 {
-};
+}
 #endif
 //---------------------------------------------------------------------------
 
 void t_work_obj::logerr(const std::string_view& astr_view)
 {
   std::cerr << astr_view << std::endl;
-};
+}
 //---------------------------------------------------------------------------
 
 
@@ -160,7 +160,7 @@ std::string t_work_obj::load_hash(const std::string& astr_filename, size_t aun_s
   file.read((char*)(vec_buf.data()), aun_length); // читаем, сколько сказали:
 
   return calc_crc(vec_buf.data(), vec_buf.size());
-};
+}
 //---------------------------------------------------------------------------
 
 
@@ -315,7 +315,7 @@ int t_work_obj::handle_file(const boost::filesystem::path& astr_file,
   
 
   return 0;
-};
+}
 //---------------------------------------------------------------------------
 
 
@@ -411,6 +411,5 @@ int t_work_obj::process_dir(const boost::filesystem::path& astr_dir,
   }
 
   return 0;
-};
+}
 //---------------------------------------------------------------------------
-
