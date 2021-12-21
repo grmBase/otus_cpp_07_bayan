@@ -32,7 +32,7 @@ int main(int argc, const char* argv[])
 
     ("dirs", bpo::value<std::vector<std::string>>()->multitoken()->zero_tokens()->composing(), "Dirs")
     ("skip_dirs", bpo::value<std::vector<std::string>>()->multitoken()->zero_tokens()->composing(), "Skip dirs")
-    ("regex", bpo::value<std::string>(&str_regex), "Skip dirs")
+    ("regex", bpo::value<std::string>(&str_regex), "Regexp to filter filenames")
     ;
 
 
@@ -59,21 +59,22 @@ int main(int argc, const char* argv[])
   }
   if (vm.count("min_file_size")) {
     std::cout << "min_file_size: " << un_min_file_size << std::endl;
-  }
-  if (vm.count("regex")) {
-    std::cout << "regex: " << str_regex << std::endl;
-  }
-  */
+  }*/
 
+  if (!vm.count("regex")) {
+    str_regex.clear();
+  }
+
+
+
+  // Перепакуем в вектор строк, который есть всегда:
+  std::vector<std::string> vec_dirs;
   if(vm.count("dirs")) 
   {
-    /*
-    std::cout << "list of dirs to handle: " << std::endl;
     for (auto& curr : vm["dirs"].as<std::vector<std::string>>())
     {
-      std::cout << curr << std::endl;
+      vec_dirs.push_back(curr);
     }
-    */
   }
 
 
@@ -97,7 +98,7 @@ int main(int argc, const char* argv[])
 
   std::cout << "going to start with following params:\r\n" << 
    "sub dir depth: " << un_depth << ", read block size: " << un_block_size << 
-   ", min file size: " << un_min_file_size << ", regex: " << str_regex;
+   ", min file size: " << un_min_file_size << ", regex: " << str_regex << std::endl;
 
   // выводить все каталоги и списки исключений наверно будет уже болтливо
 
@@ -105,7 +106,7 @@ int main(int argc, const char* argv[])
 
   try
   {
-    int nResult = workObj.do_search(vm["dirs"].as<std::vector<std::string>>(), set_skip_dirs, 
+    int nResult = workObj.do_search(vec_dirs, set_skip_dirs,
       un_depth, un_block_size, un_min_file_size, str_regex);
     if (nResult) {
       std::cout << "Error in do_search(), code: " << nResult << std::endl;

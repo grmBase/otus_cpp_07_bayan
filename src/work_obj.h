@@ -82,8 +82,7 @@ class t_work_obj
     // обрабатываем указанный файл
     int handle_file(const boost::filesystem::path& astr_file,
       t_size_size_files& a_size_storage,
-      size_t aun_file_size, size_t aun_block_size,
-      const std::string_view& astr_file_regex);
+      size_t aun_file_size, size_t aun_block_size);
 
     // рекурсивная функция обходов каталогов:
     int process_dir(const boost::filesystem::path& astr_dir, 

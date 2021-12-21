@@ -13,6 +13,14 @@ project(bayan VERSION ${PROJECT_VESRION})
 
 
 
+# настройки для boost-а:
+set(Boost_USE_STATIC_LIBS OFF) 
+set(Boost_USE_MULTITHREADED ON)  
+set(Boost_USE_STATIC_RUNTIME OFF) 
+
+find_package(Boost REQUIRED COMPONENTS program_options filesystem regex)
+
+
 
 # поищем - нужно для генерации документации
 #find_package(Doxygen QUIET)
@@ -56,7 +64,14 @@ src/work_obj.cpp
 
 target_include_directories(bayan PUBLIC
 ${PROJECT_SOURCE_DIR}/./
+${PROJECT_SOURCE_DIR}/./include
 )
+
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS}) 
+endif()
+
+
 
 
 
@@ -87,6 +102,17 @@ target_include_directories(bayan
 #    ${Boost_LIBRARIES}
 #    helloworld
 #)
+
+
+
+if(Boost_FOUND)
+  target_link_libraries(bayan 
+    Boost::filesystem 
+    Boost::regex
+    Boost::program_options)
+endif()
+
+
 
 
 if (MSVC)

@@ -104,16 +104,19 @@ int t_work_obj::do_search(
 //---------------------------------------------------------------------------
 
 
-void t_work_obj::logout(const std::string_view& astr_view)
-{
 
 // пока включим отладку:
 //#define DBG_LOGGING
-
 #ifdef DBG_LOGGING
-    std::cout << astr_view << std::endl;
-#endif
+void t_work_obj::logout(const std::string_view& astr_view)
+{
+  std::cout << astr_view << std::endl;
 };
+#else
+void t_work_obj::logout(const std::string_view&)
+{
+};
+#endif
 //---------------------------------------------------------------------------
 
 void t_work_obj::logerr(const std::string_view& astr_view)
@@ -179,8 +182,7 @@ namespace bfs = boost::filesystem;
 
 int t_work_obj::handle_file(const boost::filesystem::path& astr_file,
   t_size_size_files& a_size_storage, 
-  size_t aun_file_size, size_t aun_block_size,
-  const std::string_view& astr_file_regex)
+  size_t aun_file_size, size_t aun_block_size)
 {
   logout(std::string("\r\nstart handling file: ") + astr_file.string());
 
@@ -192,7 +194,8 @@ int t_work_obj::handle_file(const boost::filesystem::path& astr_file,
 
   logout("total num of blocks: " + std::to_string(un_max_num_of_blocks));
 
-  size_t un_curr_num_of_block = 0;
+
+  //size_t un_curr_num_of_block = 0;
 
   std::string str_curr_hash; // = c_str_hash_zero;
 
@@ -399,7 +402,7 @@ int t_work_obj::process_dir(const boost::filesystem::path& astr_dir,
     auto& size_storage = it->second;
 
 
-    int n_result = handle_file(entry, size_storage, file_size, aun_block_size, astr_file_regex);
+    int n_result = handle_file(entry, size_storage, file_size, aun_block_size);
     if (n_result) {
       logerr("error in handle_file()");
       return n_result;
