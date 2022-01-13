@@ -1,6 +1,5 @@
 //---------------------------------------------------------------------------
-#ifndef __work_obj_h__
-#define __work_obj_h__
+#pragma once
 //---------------------------------------------------------------------------
 
 // "Псевдо" хеш для того, чтобы организовать хранение файла в хеше, но ещё без вычитывания его данных
@@ -64,19 +63,7 @@ class t_work_obj
       const std::string_view& astr_file_regex);
 
 
-
   private:
-
-
-    // для простоты crc будем хранить в строках
-    std::string calc_crc(uint8_t* ap_bin_buf, size_t aun_size);
-
-    // вычисляем хеш для указанного блока файла
-    std::string load_hash(const std::string& astr_filename, 
-      size_t aun_start_pos, size_t aun_length, size_t aun_block_length);
-
-    // тест
-    void test_calc_md5();
 
 
     // обрабатываем указанный файл
@@ -92,12 +79,5 @@ class t_work_obj
       t_main_storage& a_main_storage);
 
 
-
-
-    static void logout(const std::string_view& astr_view);
-    static void logerr(const std::string_view& astr_view);
-
 };
 //---------------------------------------------------------------------------
-
-#endif
