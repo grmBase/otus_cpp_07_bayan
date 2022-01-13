@@ -59,6 +59,8 @@ add_executable(bayan
 src/main.cpp
 src/md5.cpp
 src/work_obj.cpp
+src/crypt.cpp
+src/utils.cpp
 )
 
 
